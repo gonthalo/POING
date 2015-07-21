@@ -82,9 +82,9 @@ function jugar() {
 	mover();
 }
 
-window.addEventListener("keydown", function(event) {
-	jugador.entrada(event.keyCode);
-});
+//window.addEventListener("keydown", function(event) {
+//	jugador.entrada(event.keyCode);
+//});
 
 comenzar();
 
