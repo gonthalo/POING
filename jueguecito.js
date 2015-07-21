@@ -57,9 +57,10 @@ Jugador.prototype.mover = function jugador_mover(dt){
 
 function comenzar(){
 	var n;
-	for (n=0; n<0; n++){
-		
+	for (n = 0; n < 0; ++n){
+		pars[n] = new Par();
 	}
+	jugador = new Jugador();
 }
 
 function dibujar(){
@@ -68,6 +69,11 @@ function dibujar(){
 }
 
 function mover() {
+	var dt = 40;
+	pars.forEach(function (par){
+		par.mover(dt);
+	});
+	jugador.mover;
 }
 
 function jugar() {
