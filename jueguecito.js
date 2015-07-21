@@ -74,7 +74,7 @@ function mover() {
 	pars.forEach(function (par){
 		par.mover(dt);
 	});
-	jugador.mover;
+	jugador.mover(dt);
 }
 
 function jugar() {
