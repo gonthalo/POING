@@ -66,6 +66,7 @@ function comenzar(){
 function dibujar(){
 	pluma.fillStyle = "white";
 	pluma.fillRect(0, 0, 1200, 500);
+	jugador.dibujar();
 }
 
 function mover() {
@@ -84,5 +85,7 @@ function jugar() {
 window.addEventListener("keydown", function(event) {
 	jugador.entrada(event.keyCode);
 });
+
+comenzar();
 
 setInterval(jugar, 25);
