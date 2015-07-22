@@ -85,7 +85,3 @@ function jugar() {
 //window.addEventListener("keydown", function(event) {
 //	jugador.entrada(event.keyCode);
 //});
-
-comenzar();
-
-setInterval(jugar, 25);
