@@ -3,7 +3,7 @@ var pluma = lienzo.getContext("2d");
 var pars[];
 var jugador;
 
-function Par() {
+/*function Par() {
 	this.q = Math.floor(Math.random()*40 - 10);
 	this.m = Math.floor(Math.random()*20);
 	this.e = Math.floor(Math.random()*20);
@@ -28,7 +28,7 @@ Par.prototype.mover = function par_mover(dt){
 	this.vx = this.vx + ax*dt;
 	this.vy = this.vy + ay*dt;
 }
-
+*/
 function Jugador() {
 	this.q = Math.floor(Math.random()*3 - 1)*5;
 	this.m = 5;
@@ -56,10 +56,10 @@ Jugador.prototype.mover = function jugador_mover(dt){
 }
 
 function comenzar(){
-	var n;
+	/*var n;
 	for (n = 0; n < 0; ++n){
 		pars[n] = new Par();
-	}
+	}*/
 	jugador = new Jugador();
 }
 
@@ -70,11 +70,11 @@ function dibujar(){
 }
 
 function mover() {
-	var dt = 40;
-	pars.forEach(function (par){
+	var deltat = 40;
+	/*pars.forEach(function (par){
 		par.mover(dt);
-	});
-	jugador.mover(dt);
+	});*/
+	jugador.mover(deltat);
 }
 
 function jugar() {
