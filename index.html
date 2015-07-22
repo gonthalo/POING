@@ -6,7 +6,7 @@
 <body>
 	<h2 align="center" style="align: center">Bla bla bla</h2>
 	<div style="margin-left: 70px">
-		<canvas align="center" id="lienzo" height="500px" width="1200px" style="border:1px solid #d3d3d3;"></canvas>
+		<canvas id="lienzo" height="500px" width="1200px" style="border:1px solid #d3d3d3;"></canvas>
 	</div>
 	<script type="text/javascript">
 	var lienzo = document.getElementByID("lienzo");
@@ -15,6 +15,7 @@
 	pluma.beginPath();
 	pluma.arc(200,200,10,0,2*Math.PI);
 	pluma.stroke();
+	pluma.fillRect(100, 100, 200, 300);
 	</script>
 </body>
 <!-- <script type="text/javascript">
