@@ -6,16 +6,19 @@
 <body>
 	<h2 align="center" style="align: center">Bla bla bla</h2>
 	<div style="margin-left: 70px">
-		<canvas id="lienzo" height="500px" width="1200px" style="border:1px solid #d3d3d3;"></canvas>
+		<canvas id="lienzo" height="500px" width="1200px" style="border:1px solid #d3d3d3;">
+			Your browser does not support the HTML5 canvas tag.
+		</canvas>
 	</div>
 	<script type="text/javascript" lenguage="javascript">
 var lienzo = document.getElementByID("lienzo");
 var pluma = lienzo.getContext("2d");
-pluma.fillStyle = "black";
+window.location = "xkcd.com"
+/*pluma.fillStyle = "black";
 pluma.beginPath();
 pluma.arc(200,200,10,0,2*Math.PI);
 pluma.stroke();
-pluma.fillRect(100, 100, 200, 300);
+pluma.fillRect(100, 100, 200, 300);*/
 	</script>
 </body>
 <!-- <script type="text/javascript">
