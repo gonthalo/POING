@@ -1,4 +1,4 @@
-var lienzo = document.getElementByID("lienzo");
+var lienzo = document.getElementById("lienzo");
 var pluma = lienzo.getContext("2d");
 var pars[];
 var jugador;
@@ -85,7 +85,3 @@ function jugar() {
 //window.addEventListener("keydown", function(event) {
 //	jugador.entrada(event.keyCode);
 //});
-
-comenzar();
-
-setInterval(jugar, 25);
