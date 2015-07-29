@@ -12,6 +12,12 @@
 		</canvas>
 	</div>
 	<script type="text/javascript" lenguage="javascript">
+pluma.fillStyle = "black";
+for (var corx = 20; corx<1180; ++corx){
+	pluma.beginPath();
+	pluma.arc(corx,100,10,0,2*Math.PI);
+	pluma.stroke();
+}
 comenzar();
 setInterval(jugar, 25);
 	</script>
