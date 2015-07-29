@@ -40,7 +40,7 @@ function Jugador() {
 }
 
 Jugador.prototype.dibujar = function jugador_dibujar(){
-	pluma.fillStyle = "black"
+	pluma.fillStyle = "black";
 	pluma.beginPath();
 	pluma.arc(this.x,this.y,10,0,2*Math.PI);
 	pluma.stroke();
@@ -67,6 +67,10 @@ function dibujar(){
 	pluma.fillStyle = "white";
 	pluma.fillRect(0, 0, 1200, 500);
 	jugador.dibujar();
+	var cox = Math.random()*1100;
+	var coy = Math.random()*500;
+	pluma.fillStyle = "red";
+	pluma.fillRect(cox, coy, 20, 20);
 }
 
 function mover() {
