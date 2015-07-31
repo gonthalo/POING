@@ -44,7 +44,7 @@ Jugador.prototype.dibujar = function jugador_dibujar(){
 	pluma.beginPath();
 	pluma.arc(this.x,this.y,10,0,2*Math.PI);
 	pluma.stroke();
-}
+};
 
 Jugador.prototype.mover = function jugador_mover(dt){
 	var ax = 0;
@@ -53,7 +53,7 @@ Jugador.prototype.mover = function jugador_mover(dt){
 	this.y = this.y + this.vy*dt + ay*ay*dt*0.5;
 	this.vx = this.vx + ax*dt;
 	this.vy = this.vy + ay*dt;
-}
+};
 
 function comenzar(){
 	/*var n;
@@ -89,3 +89,6 @@ function jugar() {
 //window.addEventListener("keydown", function(event) {
 //	jugador.entrada(event.keyCode);
 //});
+
+comenzar();
+setInterval(jugar(), 25);

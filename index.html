@@ -2,24 +2,50 @@
 <html>
 <head>
 	<title>POING</title>
-	<script type="text/javascript" src="jueguecito.js"></script>
 </head>
 <body>
-	<h2 align="center" style="align: center">Bla bla bla</h2>
+	<h2 align="center" style="align: center">En este lugar se encuentra la suprema Verdad:</h2>
 	<div style="margin-left: 70px">
 		<canvas id="lienzo" height="500px" width="1200px" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.
 		</canvas>
 	</div>
+	<script type="text/javascript" src="C:\Users\Gonzalín\Documents\Github\POING\jueguecito.js"></script>
 	<script type="text/javascript" lenguage="javascript">
-pluma.fillStyle = "black";
-var i;
-for (i = 20; i < 1180; ++i){
-	pluma.beginPath();
-	pluma.arc(i,100,10,0,2*Math.PI);
-	pluma.stroke();
+var lienzo = document.getElementById("lienzo");
+var pluma = lienzo.getContext("2d");
+function Jugador() {
+	this.x = Math.random()*1160 + 20;
+	this.y = Math.random()*460 + 20;
+	this.vx = Math.random()*6 - 3;
+	this.vy = Math.random()*6 - 3;
 }
-//comenzar();
-//setInterval(jugar, 25);
+var sx = 21;
+var sy = 300;
+var vx = 5;
+var vy = 0;
+function mover(){
+	pluma.fillStyle = "white";
+	pluma.fillRect(0, 0, 1200, 500);
+	pluma.fillStyle = "black";
+	var i;
+	pluma.beginPath();
+	for (i=1; i<11; ++i){
+		pluma.arc(sx,sy,i,0,2*Math.PI);
+	}
+	pluma.stroke();
+	if (vy<15){
+		vy = vy + 0.5;
+	}
+	if (sx>1180 || sx<20){
+		vx = 0-vx;
+	}
+	if (sy>480 || sy<20){
+		vy = 0-vy;
+	}
+	sx = sx + vx;
+	sy = sy + vy;
+}
+setInterval(mover, 25);
 	</script>
 </body>
