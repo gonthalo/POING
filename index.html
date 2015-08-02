@@ -17,6 +17,8 @@ var pars = [];
 var mapa = [];
 var g = 0;
 var magnet=0;
+var wallx=true;
+var wally=true;
 var bacolor = "beige";
 function Jugador() {
 	this.x = Math.random()*1160 + 20;
@@ -29,10 +31,18 @@ Jugador.prototype.mover = function() {
 	this.x = this.x + this.vx;
 	this.y = this.y + this.vy;
 	if (this.x>1180 || this.x<20){
-		this.vx = 0-this.vx;
+		if (wallx){
+			this.vx = 0-this.vx;
+		} else {
+			this.x = (this.x + 1200)%1200;
+		}
 	}
 	if (this.y>480 || this.y<20){
-		this.vy = 0-this.vy;
+		if (wally){
+			this.vy = 0-this.vy;
+		} else {
+			this.y = (this.y + 500)%500;
+		}
 	}
 	if (this.y<480){
 		this.vy = this.vy + g;
@@ -62,21 +72,6 @@ Jugador.prototype.entrada = function jugador_entrada(keyCode) {
 		this.y = 250;
 		this.x = 600;
 	}
-	if (keyCode == 71) {
-		g = 1 - g;
-	}
-	if (keyCode == 82) {
-		magnet = 1;
-		bacolor = "pink";
-	}
-	if (keyCode == 76) {
-		magnet = -1;
-		bacolor = "LightBlue";
-	}
-	if (keyCode == 79) {
-		magnet = 0;
-		bacolor = "beige";
-	}
 };
 
 Jugador.prototype.dibujar = function () {
@@ -102,10 +97,18 @@ Par.prototype.mover = function() {
 	this.x = this.x + this.vx;
 	this.y = this.y + this.vy;
 	if (this.x>1180 || this.x<20){
-		this.vx = 0-this.vx;
+		if (wallx){
+			this.vx = 0-this.vx;
+		} else {
+			this.x = (this.x + 1200)%1200;
+		}
 	}
 	if (this.y>480 || this.y<20){
-		this.vy = 0-this.vy;
+		if (wally){
+			this.vy = 0-this.vy;
+		} else {
+			this.y = (this.y + 500)%500;
+		}
 	}
 	if (this.y<480){
 		this.vy = this.vy + g;
@@ -148,6 +151,27 @@ function jugar() {
 
 window.addEventListener("keydown", function(event) {
 	jugador.entrada(event.keyCode);
+	if (event.keyCode == 71) {
+		g = 1 - g;
+	}
+	if (event.keyCode == 82) {
+		magnet = 1;
+		bacolor = "pink";
+	}
+	if (event.keyCode == 76) {
+		magnet = -1;
+		bacolor = "LightBlue";
+	}
+	if (event.keyCode == 79) {
+		magnet = 0;
+		bacolor = "beige";
+	}
+	if (event.keyCode == 89) {
+		wallx = !wallx;
+	}
+	if (event.keyCode == 88) {
+		wally = !wally;
+	}
 });
 
 comenzar();
