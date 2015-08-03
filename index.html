@@ -19,8 +19,12 @@ var g = 0;
 var magnet=0;
 var wallx=true;
 var wally=true;
+var ymax=500;
+var xmax=1200;
 var bacolor = "beige";
 function Jugador() {
+	this.m = 5;
+	this.q = Math.floor(Math.random()*3) - 1;
 	this.x = Math.random()*1160 + 20;
 	this.y = Math.random()*460 + 20;
 	this.vx = Math.random()*6 - 3;
@@ -47,8 +51,8 @@ Jugador.prototype.mover = function() {
 	if (this.y<480){
 		this.vy = this.vy + g;
 	}
-	this.vy = this.vy + 0.1*magnet*this.vx;
-	this.vx = this.vx - 0.1*magnet*this.vy;
+	this.vy = this.vy + 0.3*this.q*magnet*this.vx/this.m;
+	this.vx = this.vx - 0.3*this.q*magnet*this.vy/this.m;
 };
 
 Jugador.prototype.entrada = function jugador_entrada(keyCode) {
@@ -78,15 +82,22 @@ Jugador.prototype.dibujar = function () {
 	pluma.fillStyle = bacolor;
 	pluma.fillRect(0, 0, 1200, 500);
 	pluma.fillStyle = "black";
+	pluma.font = "20px Times"
+	pluma.fillText("m = ", 20, 30);
+	pluma.fillText(this.m, 60, 30);
+	pluma.fillText("Q = ", 20, 50);
+	pluma.fillText(this.q, 60, 50);
 	var i;
 	pluma.beginPath();
-	for (i=1; i<10; ++i){
+	for (i=1; i<10; i=i + 1.4){
 		pluma.arc(this.x,this.y,i,0,2*Math.PI);
 	}
 	pluma.stroke();
 };
 
 function Par() {
+	this.m = Math.random()*4 + 1;
+	this.q = Math.floor(Math.random()*3) - 1;
 	this.x = Math.random()*1160 + 20;
 	this.y = Math.random()*460 + 20;
 	this.vx = Math.random()*6 - 3;
@@ -113,23 +124,30 @@ Par.prototype.mover = function() {
 	if (this.y<480){
 		this.vy = this.vy + g;
 	}
-	this.vy = this.vy + 0.1*magnet*this.vx;
-	this.vx = this.vx - 0.1*magnet*this.vy;
+	this.vy = this.vy + 0.1*this.q*magnet*this.vx;
+	this.vx = this.vx - 0.1*this.q*magnet*this.vy;
 };
 
 Par.prototype.dibujar = function () {
-	pluma.fillStyle = "green";
-	var i;
-	pluma.beginPath();
-	for (i=1; i<10; ++i){
-		pluma.arc(this.x,this.y,i,0,2*Math.PI);
+	if (this.q==0){
+		pluma.fillStyle = "black";
+	} else {
+		if (this.q==1){
+			//pluma.fillText("+", Math.floor(this.x), Math.floor(this.y));
+			pluma.fillStyle = "red";
+		} else {
+			//pluma.fillText("-", Math.floor(this.x); Math.floor(this.y));
+			pluma.fillStyle = "blue";
+		}
 	}
+	pluma.beginPath();
+	pluma.arc(this.x,this.y,10,0,2*Math.PI);
 	pluma.stroke();
 };
 
 function comenzar() {
 	var n;
-	for (n=0; n<1500; ++n){
+	for (n=0; n<240; ++n){
 		mapa [n] = Math.floor(Math.random()*8);
 	}
 	for (n=0; n<3; ++n){
