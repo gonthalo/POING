@@ -34,21 +34,21 @@ function Jugador() {
 Jugador.prototype.mover = function() {
 	this.x = this.x + this.vx;
 	this.y = this.y + this.vy;
-	if (this.x>1180 || this.x<20){
+	if (this.x>xmax - 20 || this.x<20){
 		if (wallx){
 			this.vx = 0-this.vx;
 		} else {
-			this.x = (this.x + 1200)%1200;
+			this.x = (this.x + xmax)%xmax;
 		}
 	}
-	if (this.y>480 || this.y<20){
+	if (this.y>ymax - 20 || this.y<20){
 		if (wally){
 			this.vy = 0-this.vy;
 		} else {
-			this.y = (this.y + 500)%500;
+			this.y = (this.y + ymax)%ymax;
 		}
 	}
-	if (this.y<480){
+	if (this.y<ymax - 20){
 		this.vy = this.vy + g;
 	}
 	this.vy = this.vy + 0.3*this.q*magnet*this.vx/this.m;
@@ -73,14 +73,14 @@ Jugador.prototype.entrada = function jugador_entrada(keyCode) {
 		this.vx = 0;
 	}
 	if(keyCode == 67){
-		this.y = 250;
-		this.x = 600;
+		this.y = ymax/2;
+		this.x = xmax/2;
 	}
 };
 
 Jugador.prototype.dibujar = function () {
 	pluma.fillStyle = bacolor;
-	pluma.fillRect(0, 0, 1200, 500);
+	pluma.fillRect(0, 0, xmax, ymax);
 	pluma.fillStyle = "black";
 	pluma.font = "20px Times"
 	pluma.fillText("m = ", 20, 30);
@@ -98,8 +98,8 @@ Jugador.prototype.dibujar = function () {
 function Par() {
 	this.m = Math.random()*4 + 1;
 	this.q = Math.floor(Math.random()*3) - 1;
-	this.x = Math.random()*1160 + 20;
-	this.y = Math.random()*460 + 20;
+	this.x = Math.random()*(xmax - 40) + 20;
+	this.y = Math.random()*(ymax - 40) + 20;
 	this.vx = Math.random()*6 - 3;
 	this.vy = Math.random()*6 - 3;
 }
@@ -107,25 +107,25 @@ function Par() {
 Par.prototype.mover = function() {
 	this.x = this.x + this.vx;
 	this.y = this.y + this.vy;
-	if (this.x>1180 || this.x<20){
+	if (this.x>xmax - 20 || this.x<20){
 		if (wallx){
 			this.vx = 0-this.vx;
 		} else {
-			this.x = (this.x + 1200)%1200;
+			this.x = (this.x + xmax)%xmax;
 		}
 	}
-	if (this.y>480 || this.y<20){
+	if (this.y>ymax - 20 || this.y<20){
 		if (wally){
 			this.vy = 0-this.vy;
 		} else {
-			this.y = (this.y + 500)%500;
+			this.y = (this.y + ymax)%ymax;
 		}
 	}
-	if (this.y<480){
+	if (this.y<ymax - 20){
 		this.vy = this.vy + g;
 	}
-	this.vy = this.vy + 0.1*this.q*magnet*this.vx;
-	this.vx = this.vx - 0.1*this.q*magnet*this.vy;
+	this.vy = this.vy + 0.3*this.q*magnet*this.vx/this.m;
+	this.vx = this.vx - 0.3*this.q*magnet*this.vy/this.m;
 };
 
 Par.prototype.dibujar = function () {
@@ -133,10 +133,8 @@ Par.prototype.dibujar = function () {
 		pluma.fillStyle = "black";
 	} else {
 		if (this.q==1){
-			//pluma.fillText("+", Math.floor(this.x), Math.floor(this.y));
 			pluma.fillStyle = "red";
 		} else {
-			//pluma.fillText("-", Math.floor(this.x); Math.floor(this.y));
 			pluma.fillStyle = "blue";
 		}
 	}
