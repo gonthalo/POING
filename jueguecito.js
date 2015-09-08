@@ -12,10 +12,16 @@ function Par() {
 }
 
 Par.prototype.pintar = function par_pintar(){
-	pluma.fillStyle = "black"
+	pluma.fillStyle = "black";
+	if (this.q>0){
+		pluma.fillstyle="red";
+	}
+	if (this.q<0){
+		pluma.fillstyle="blue";
+	}
 	pluma.beginPath();
 	pluma.arc(this.x,this.y,10,0,2*Math.PI);
-	pluma.stroke();
+	pluma.fill();
 }
 
 
