@@ -29,12 +29,26 @@ var pluma = lienzo.getContext("2d");
 var pars = [];
 var mapa = [];
 var g = 0;
+var numpars = 3;
 var magnet=0;
 var wallx=true;
 var wally=true;
 var ymax=500;
 var xmax=1200;
 var bacolor = "beige";
+
+function pot(base, expo){
+	var res=1;
+	for (var i = 0; i < expo; i++) {
+		res = res*base;
+	}
+	return res;
+}
+
+function dist(a, b){
+	return Math.sqrt(pot(pars[a].x-pars[b].x, 2)+pot(pars[a].y-pars[b].y, 2));
+}
+
 function Jugador() {
 	this.m = 5;
 	this.q = Math.floor(Math.random()*3) - 1;
@@ -115,11 +129,15 @@ function Par() {
 	this.y = Math.random()*(ymax - 40) + 20;
 	this.vx = Math.random()*6 - 3;
 	this.vy = Math.random()*6 - 3;
+	this.num = -1;
 }
 
 Par.prototype.mover = function() {
 	this.x = this.x + this.vx;
 	this.y = this.y + this.vy;
+};
+
+Par.prototype.calcu = function() {
 	if (this.x>xmax - 20 || this.x<20){
 		if (wallx){
 			this.vx = 0-this.vx;
@@ -139,6 +157,12 @@ Par.prototype.mover = function() {
 	}
 	this.vy = this.vy + 0.3*this.q*magnet*this.vx/this.m;
 	this.vx = this.vx - 0.3*this.q*magnet*this.vy/this.m;
+	for (var i = 0; i < numpars; i++) {
+		if (this.num!=i){
+			this.vy = this.vy + (pars[i].y-this.y)*100*pars[i].m/pot(dist(this.num, i),3);
+			this.vx = this.vx + (pars[i].x-this.x)*100*pars[i].m/pot(dist(this.num, i),3);
+		}
+	}
 };
 
 Par.prototype.dibujar = function () {
@@ -159,8 +183,9 @@ function comenzar() {
 	for (n=0; n<240; ++n){
 		mapa [n] = Math.floor(Math.random()*8);
 	}
-	for (n=0; n<3; ++n){
+	for (n=0; n<numpars; ++n){
 		pars[n] = new Par();
+		pars[n].num = n;
 	}
 	jugador = new Jugador();
 }
@@ -173,6 +198,7 @@ function jugar() {
 	jugador.mover();
 	pars.forEach(function (par) {
 		par.mover();
+		par.calcu();
 	});
 }
 
