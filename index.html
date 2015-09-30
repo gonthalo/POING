@@ -16,6 +16,11 @@
 <body>
 	<h2 align="center">En este lugar se encuentra la suprema Verdad:</h2>
 	<div style="margin-left: 70px; margin-right: 70px;">
+		<div style="text-align:center">
+			<input type="button" onclick="comenzar();" value="Comenzar de nuevo" style="border-radius:4px">
+			N&uacute;mero de part&iacute;culas:
+			<input id="puntitos" type="number" min="1" max="8" value="4">
+		</div>
 		<canvas id="lienzo" height="500px" width="1200px" style="border:2px solid #00d070;">
 			Your browser does not support the HTML5 canvas tag.
 		</canvas>
@@ -174,11 +179,12 @@ Par.prototype.dibujar = function () {
 		pluma.fillStyle="blue";
 	}
 	pluma.beginPath();
-	pluma.arc(this.x,this.y,10,0,2*Math.PI);
+	pluma.arc(this.x,this.y,Math.sqrt(20*this.m),0,2*Math.PI);
 	pluma.fill();
 };
 
 function comenzar() {
+	numpars = document.getElementById("puntitos").value - 1;
 	var n;
 	for (n=0; n<240; ++n){
 		mapa [n] = Math.floor(Math.random()*8);
