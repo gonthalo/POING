@@ -51,6 +51,9 @@ function pot(base, expo){
 }
 
 function dist(a, b){
+	if (a==-1){
+		return Math.sqrt(pot(jugador.x-pars[b].x, 2)+pot(jugador.y-pars[b].y, 2));
+	}
 	return Math.sqrt(pot(pars[a].x-pars[b].x, 2)+pot(pars[a].y-pars[b].y, 2));
 }
 
@@ -61,6 +64,7 @@ function Jugador() {
 	this.y = Math.random()*460 + 20;
 	this.vx = Math.random()*6 - 3;
 	this.vy = Math.random()*6 - 3;
+	this.num = -1;
 }
 
 Jugador.prototype.mover = function() {
@@ -85,6 +89,10 @@ Jugador.prototype.mover = function() {
 	}
 	this.vy = this.vy + 0.3*this.q*magnet*this.vx/this.m;
 	this.vx = this.vx - 0.3*this.q*magnet*this.vy/this.m;
+	for (var i = 0; i < numpars; i++) {
+		this.vy = this.vy + (pars[i].y-this.y)*100*pars[i].m/pot(dist(this.num, i),3);
+		this.vx = this.vx + (pars[i].x-this.x)*100*pars[i].m/pot(dist(this.num, i),3);
+	}
 };
 
 Jugador.prototype.entrada = function jugador_entrada(keyCode) {
@@ -120,6 +128,7 @@ Jugador.prototype.dibujar = function () {
 	pluma.fillText("Q = ", 20, 50);
 	pluma.fillText(this.q, 60, 50);
 	var i;
+	pluma.strokeStyle = "black";
 	pluma.beginPath();
 	for (i=1; i<10; i=i + 1.4){
 		pluma.arc(this.x,this.y,i,0,2*Math.PI);
@@ -168,6 +177,8 @@ Par.prototype.calcu = function() {
 			this.vx = this.vx + (pars[i].x-this.x)*100*pars[i].m/pot(dist(this.num, i),3);
 		}
 	}
+	this.vy = this.vy + (jugador.y-this.y)*100*jugador.m/pot(dist(jugador.num, this.num),3);
+	this.vx = this.vx + (jugador.x-this.x)*100*jugador.m/pot(dist(jugador.num, this.num),3);
 };
 
 Par.prototype.dibujar = function () {
