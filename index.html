@@ -57,6 +57,20 @@ function dist(a, b){
 	return Math.sqrt(pot(pars[a].x-pars[b].x, 2)+pot(pars[a].y-pars[b].y, 2));
 }
 
+function choque(i1, i2){
+	if (i1==-1 || i2==-1){
+
+	}
+	pars[i1].x = (pars[i1].x*pars[i1].m + pars[i2].x*pars[i2].m)/(pars[i1].m + pars[i2].m);
+	pars[i1].y = (pars[i1].y*pars[i1].m + pars[i2].y*pars[i2].m)/(pars[i1].m + pars[i2].m);
+	pars[i1].vx = (pars[i1].vx*pars[i1].m + pars[i2].vx*pars[i2].m)/(pars[i1].m + pars[i2].m);
+	pars[i1].vy = (pars[i1].vy*pars[i1].m + pars[i2].vy*pars[i2].m)/(pars[i1].m + pars[i2].m);
+	pars[i1].q = pars[i1].q + pars[i2].q;
+	pars[i1].m = pars[i1].m + pars[i2].m;
+	pars.splice(i2, 1);
+	numpars--;
+}
+
 function Jugador() {
 	this.m = 5;
 	this.q = Math.floor(Math.random()*3) - 1;
@@ -90,8 +104,12 @@ Jugador.prototype.mover = function() {
 	this.vy = this.vy + 0.3*this.q*magnet*this.vx/this.m;
 	this.vx = this.vx - 0.3*this.q*magnet*this.vy/this.m;
 	for (var i = 0; i < numpars; i++) {
-		this.vy = this.vy + (pars[i].y-this.y)*100*pars[i].m/pot(dist(this.num, i),3);
-		this.vx = this.vx + (pars[i].x-this.x)*100*pars[i].m/pot(dist(this.num, i),3);
+		if (dist(this.num, i)>Math.sqrt(20*this.m)){
+			this.vy = this.vy - (pars[i].y-this.y)*950*pars[i].q*this.q/pot(dist(this.num, i),3)/this.m;
+			this.vx = this.vx - (pars[i].x-this.x)*950*pars[i].q*this.q/pot(dist(this.num, i),3)/this.m;
+			this.vy = this.vy + (pars[i].y-this.y)*90*pars[i].m/pot(dist(this.num, i),3);
+			this.vx = this.vx + (pars[i].x-this.x)*90*pars[i].m/pot(dist(this.num, i),3);
+		}
 	}
 };
 
@@ -173,12 +191,22 @@ Par.prototype.calcu = function() {
 	this.vx = this.vx - 0.3*this.q*magnet*this.vy/this.m;
 	for (var i = 0; i < numpars; i++) {
 		if (this.num!=i){
-			this.vy = this.vy + (pars[i].y-this.y)*100*pars[i].m/pot(dist(this.num, i),3);
-			this.vx = this.vx + (pars[i].x-this.x)*100*pars[i].m/pot(dist(this.num, i),3);
+			if (dist(this.num, i)>Math.sqrt(20*this.m)){
+				this.vy = this.vy - (pars[i].y-this.y)*950*pars[i].q*this.q/pot(dist(this.num, i),3)/this.m;
+				this.vx = this.vx - (pars[i].x-this.x)*950*pars[i].q*this.q/pot(dist(this.num, i),3)/this.m;
+				this.vy = this.vy + (pars[i].y-this.y)*90*pars[i].m/pot(dist(this.num, i),3);
+				this.vx = this.vx + (pars[i].x-this.x)*90*pars[i].m/pot(dist(this.num, i),3);
+			} else {
+				//choque(this.num, i);
+			}
 		}
 	}
-	this.vy = this.vy + (jugador.y-this.y)*100*jugador.m/pot(dist(jugador.num, this.num),3);
-	this.vx = this.vx + (jugador.x-this.x)*100*jugador.m/pot(dist(jugador.num, this.num),3);
+	if (dist(-1, this.num)>Math.sqrt(20*this.m)){
+		this.vy = this.vy - (jugador.y-this.y)*950*jugador.q*this.q/pot(dist(jugador.num, this.num),3)/this.m;
+		this.vx = this.vx - (jugador.x-this.x)*950*jugador.q*this.q/pot(dist(jugador.num, this.num),3)/this.m;
+		this.vy = this.vy + (jugador.y-this.y)*90*jugador.m/pot(dist(jugador.num, this.num),3);
+		this.vx = this.vx + (jugador.x-this.x)*90*jugador.m/pot(dist(jugador.num, this.num),3);
+	}
 };
 
 Par.prototype.dibujar = function () {
@@ -210,14 +238,14 @@ function comenzar() {
 
 function jugar() {
 	jugador.dibujar();
-	pars.forEach(function (par) {
-		par.dibujar();
-	});
+	for (var i=0; i<numpars; i++){
+		pars[i].dibujar();
+	}
 	jugador.mover();
-	pars.forEach(function (par) {
-		par.mover();
-		par.calcu();
-	});
+	for (var i=0; i<numpars; i++){
+		pars[i].mover();
+		pars[i].calcu();
+	}
 }
 
 window.addEventListener("keydown", function(event) {
